@@ -1,11 +1,10 @@
-// src/App.tsx
-import React, { useState, useEffect } from "react";
-// import Board from "./components/Board";
+import { useState, useEffect } from "react";
+import Board from "./components/Board";
 // import Dice from "./components/Dice";
 // import RollIndicator from "./components/RollIndicator";
 
 const TOTAL_CELLS = 36;
-const COOLDOWN_START = 30 * 60; // 30 хвилин у секундах
+const COOLDOWN_START = 30 * 60;
 
 export default function App() {
   const [currentPosition, setCurrentPosition] = useState<number>(0);
@@ -58,7 +57,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-purple-900 text-white flex flex-col items-center p-4">
-      {/* <Board currentPos={currentPosition} /> */}
+      <Board currentPos={currentPosition} />
       <div className="flex items-center space-x-4 mt-6">
         {/* <Dice value={diceValue} rolling={isRolling} /> */}
         <button
