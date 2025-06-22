@@ -30,22 +30,36 @@ const Dice: FC<DiceProps> = ({ value, rolling }) => {
         <motion.img
           src={animationStartDice}
           alt="animation"
-          className="w-20 h-20"
-          animate={{ rotate: 360 }}
-          transition={{ repeat: Infinity, duration: 0.6, ease: "linear" }}
+          className="w-20 h-20 object-contain"
+          animate={{ rotate: 360, scale: [1, 1.07, 1] }}
+          transition={{
+            rotate: { repeat: Infinity, duration: 0.6, ease: "linear" },
+            scale: { repeat: Infinity, duration: 0.8, ease: "easeInOut" },
+          }}
         />
-      ) : value ? (
-        <img
+      ) : value !== null ? (
+        <motion.img
           src={mapDiceImages[value]}
           alt={`Dice ${value}`}
-          className="w-20 h-20"
+          className="w-20 h-20 object-contain"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1, y: [10, -5, 0] }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
         />
       ) : (
         <img
           src={mapDiceImages[3]}
           alt={`Dice ${value}`}
-          className="w-20 h-20"
+          className="w-20 h-20 object-contain"
         />
+      )}
+      {!rolling && value !== null && (
+        <motion.div
+          className="absolute inset-0 bg-yellow-300 opacity-20 blur-xl rounded-xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.2 }}
+          transition={{ duration: 0.3 }}
+        ></motion.div>
       )}
     </div>
   );
