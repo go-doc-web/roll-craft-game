@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import Board from "./components/Board";
-// import Dice from "./components/Dice";
+import Dice from "./components/Dice";
 // import RollIndicator from "./components/RollIndicator";
 
 const TOTAL_CELLS = 36;
@@ -59,7 +59,7 @@ export default function App() {
     <div className="min-h-screen bg-purple-900 text-white flex flex-col items-center p-4">
       <Board currentPos={currentPosition} />
       <div className="flex items-center space-x-4 mt-6">
-        {/* <Dice value={diceValue} rolling={isRolling} /> */}
+        <Dice value={diceValue} rolling={isRolling} />
         <button
           className="bg-green-500 px-6 py-3 rounded disabled:opacity-50"
           onClick={handleRoll}
