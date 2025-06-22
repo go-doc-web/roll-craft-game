@@ -27,7 +27,7 @@ const mapDiceImages: Record<number, string> = {
 
 const Dice: FC<DiceProps> = ({ value, rolling }) => {
   return (
-    <div className="w-16 h-16 flex items-center justify-center bg-white rounded shadow-md">
+    <div className="w-24 h-24 flex items-center justify-center bg-white rounded shadow-md  ">
       {rolling ? (
         <img src={animationStartDice} alt="animation" className="w-12 h-12" />
       ) : value ? (
@@ -37,7 +37,11 @@ const Dice: FC<DiceProps> = ({ value, rolling }) => {
           className="w-12 h-12"
         />
       ) : (
-        <span className="text-lg text-gray-400">-</span>
+        <img
+          src={mapDiceImages[3]}
+          alt={`Dice ${value}`}
+          className="w-12 h-12"
+        />
       )}
     </div>
   );

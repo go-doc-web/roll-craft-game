@@ -1,8 +1,11 @@
 import type { FC } from "react";
 import classNames from "classnames";
+import Dice from "./Dice";
 
 interface BoardProps {
   currentPos: number;
+  rolling: boolean;
+  value: number | null;
 }
 
 const cellTypes: string[] = [
@@ -39,7 +42,7 @@ const perimeterIndices = [
   24, 18, 12, 6,
 ];
 
-const Board: FC<BoardProps> = ({ currentPos }) => {
+const Board: FC<BoardProps> = ({ currentPos, rolling, value }) => {
   const cells = Array.from({ length: 36 }, (_, index) => {
     const perimeterIdx = perimeterIndices.indexOf(index);
     const isActive = perimeterIdx !== -1;
@@ -68,8 +71,11 @@ const Board: FC<BoardProps> = ({ currentPos }) => {
   });
 
   return (
-    <div className="grid grid-cols-6 gap-1 bg-purple-900 p-2 rounded">
+    <div className="grid grid-cols-6 gap-1 bg-purple-900 p-2 rounded relative ">
       {cells}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+        <Dice value={value} rolling={rolling} />
+      </div>
     </div>
   );
 };
