@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import classNames from "classnames";
 import Dice from "./Dice";
+import CellIcon from "./CellIcon";
 
 interface BoardProps {
   currentPos: number;
@@ -8,7 +9,7 @@ interface BoardProps {
   value: number | null;
 }
 
-const cellTypes: string[] = [
+const cellTypes = [
   "Start",
   "Box",
   "Cash",
@@ -29,7 +30,7 @@ const cellTypes: string[] = [
   "Cash",
   "Dice",
   "Gold",
-];
+] as const;
 
 const perimeterIndices = [
   // Top
@@ -48,17 +49,23 @@ const Board: FC<BoardProps> = ({ currentPos, rolling, value }) => {
     const isActive = perimeterIdx !== -1;
 
     if (!isActive) {
-      return <div key={index} className="w-10 h-10"></div>;
+      return <div key={index} className="w-14 h-14 "></div>;
     }
 
-    const type = cellTypes[perimeterIdx];
+    const type = (
+      <CellIcon
+        className="w-full h-auto"
+        type={cellTypes[perimeterIdx]}
+        isStart={index === 0}
+      />
+    );
     const isPlayerHere = perimeterIdx === currentPos;
 
     return (
       <div
         key={index}
         className={classNames(
-          "w-10 h-10 sm:w-14 sm:h-14 border flex items-center justify-center text-[8px] sm:text-xs font-bold rounded",
+          "w-14 h-14  border flex items-center justify-center   font-bold rounded",
           isPlayerHere
             ? //   TODO:Замініти на бордер и бекграунд із макету
               "bg-yellow-300 text-black animate-pulse"
