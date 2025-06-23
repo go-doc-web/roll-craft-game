@@ -62,7 +62,7 @@ export default function App() {
         <div className="stars-top"></div>
         <div className="stars-bottom"></div>
       </div>
-      <div className=" w-full xs:w-[389px] mx-auto text-white flex flex-col items-center px-4">
+      <div className=" w-full xs:w-[389px] mx-auto text-white flex flex-col items-center px-4  ">
         <div className="heading flex items-center justify-center gap-4  mt-[64px] sm:mt-[84px] ">
           <h1 className="relative text-2xl font-extrabold leading-none text-white  sm:text-3xl ">
             Roll Craft
@@ -79,7 +79,7 @@ export default function App() {
 
         <div className="flex items-center  mt-6 w-full ">
           <button
-            className="bg-green-500 px-6 py-3 rounded disabled:opacity-50 w-full "
+            className="bg-green-500 px-6 py-3 rounded disabled:opacity-50 w-full cursor-pointer "
             onClick={handleRoll}
             disabled={isRolling || availableRolls <= 0}
           >
