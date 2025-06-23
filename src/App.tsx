@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
 import Board from "./components/Board";
-
 import RollIndicator from "./components/RollIndicator";
 
-const TOTAL_CELLS = 36;
-const COOLDOWN_START = 30 * 60;
+import { TOTAL_CELLS, COOLDOWN_START } from "./constants/index";
 
 export default function App() {
   const [currentPosition, setCurrentPosition] = useState<number>(0);
@@ -54,7 +52,6 @@ export default function App() {
         setIsRolling(false);
         setAvailableRolls((r) => r - 1);
         setCooldown(COOLDOWN_START);
-        // TODO: тут можна додати ефект клітинки
       }
     }, 200);
   };

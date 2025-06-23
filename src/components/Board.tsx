@@ -5,6 +5,7 @@ import CellIcon from "./CellIcon";
 import bgActiveImage from "../assets/bg-active.svg";
 import bgStartImage from "../assets/bg-start.svg";
 import bgSpecialCellImage from "../assets/bg-6-36-31.png";
+import ligth from "../assets/light.png";
 
 interface BoardProps {
   currentPos: number;
@@ -81,7 +82,6 @@ const Board: FC<BoardProps> = ({ currentPos, rolling, value }) => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
-        // border: "1px solid blue",
       };
     } else if (specialCellIndices.includes(index)) {
       dynamicStyles = {
@@ -113,9 +113,18 @@ const Board: FC<BoardProps> = ({ currentPos, rolling, value }) => {
   });
 
   return (
-    <div className="grid grid-cols-6 gap-0.5 xs:gap-1  rounded relative mt-[29px]  ">
+    <div
+      className="grid grid-cols-6 gap-0.5 xs:gap-1  rounded relative mt-[29px] z-100  "
+      style={{
+        backgroundImage: `url(${ligth})`,
+        backgroundSize: "contain",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        position: "relative",
+      }}
+    >
       {cells}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  ">
         <Dice value={value} rolling={rolling} />
       </div>
     </div>
