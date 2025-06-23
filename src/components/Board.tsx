@@ -2,6 +2,9 @@ import type { FC } from "react";
 import classNames from "classnames";
 import Dice from "./Dice";
 import CellIcon from "./CellIcon";
+import bgActiveImage from "../assets/bg-active.svg";
+import bgStartImage from "../assets/bg-start.svg";
+import bgSpecialCellImage from "../assets/bg-6-36-31.png";
 
 interface BoardProps {
   currentPos: number;
@@ -49,7 +52,7 @@ const Board: FC<BoardProps> = ({ currentPos, rolling, value }) => {
     const isActive = perimeterIdx !== -1;
 
     if (!isActive) {
-      return <div key={index} className="w-14 h-14 "></div>;
+      return <div key={index} className="w-11 h-11 xs:w-14 xs:h-14  "></div>;
     }
 
     const type = (
@@ -60,25 +63,57 @@ const Board: FC<BoardProps> = ({ currentPos, rolling, value }) => {
       />
     );
     const isPlayerHere = perimeterIdx === currentPos;
+    const specialCellIndices = [5, 30, 35];
+
+    let dynamicStyles = {};
+
+    if (isPlayerHere) {
+      dynamicStyles = {
+        backgroundImage: `url(${bgActiveImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        border: "2px solid #82E024",
+      };
+    } else if (index === 0) {
+      dynamicStyles = {
+        backgroundImage: `url(${bgStartImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        // border: "1px solid blue",
+      };
+    } else if (specialCellIndices.includes(index)) {
+      dynamicStyles = {
+        backgroundImage: `url(${bgSpecialCellImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      };
+    } else {
+      dynamicStyles = {
+        backgroundColor: "rgba(255, 255, 255, 0.1)",
+      };
+    }
 
     return (
-      <div
-        key={index}
-        className={classNames(
-          "w-14 h-14  border flex items-center justify-center   font-bold rounded",
-          isPlayerHere
-            ? //   TODO:Замініти на бордер и бекграунд із макету
-              "bg-yellow-300 text-black animate-pulse"
-            : "bg-purple-700"
-        )}
-      >
-        {type}
-      </div>
+      <>
+        <div
+          key={index}
+          className={classNames(
+            "w-11 h-11 xs:w-14 xs:h-14   flex items-center justify-center font-bold rounded-[8px]",
+            isPlayerHere ? "text-black animate-pulse" : ""
+          )}
+          style={dynamicStyles}
+        >
+          {type}
+        </div>
+      </>
     );
   });
 
   return (
-    <div className="grid grid-cols-6 gap-1 bg-purple-900 p-2 rounded relative ">
+    <div className="grid grid-cols-6 gap-0.5 xs:gap-1  rounded relative mt-[29px]  ">
       {cells}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 ">
         <Dice value={value} rolling={rolling} />

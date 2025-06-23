@@ -56,23 +56,35 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-purple-900 text-white flex flex-col items-center p-4">
-      <Board
-        currentPos={currentPosition}
-        value={diceValue}
-        rolling={isRolling}
-      />
-
-      <div className="flex items-center space-x-4 mt-6">
-        <button
-          className="bg-green-500 px-6 py-3 rounded disabled:opacity-50"
-          onClick={handleRoll}
-          disabled={isRolling || availableRolls <= 0}
-        >
-          Roll
-        </button>
+    <>
+      <div className="background-container">
+        <div className="stars-top"></div>
+        <div className="stars-bottom"></div>
       </div>
-      {/* <RollIndicator rolls={availableRolls} cooldown={cooldown} /> */}
-    </div>
+      <div className="min-h-screen w-full xs:w-[389px] mx-auto text-white flex flex-col items-center p-4">
+        <div className="heading flex items-center justify-center gap-4  mt-[64px]  ">
+          <h1 className="relative text-2xl font-extrabold leading-none text-white  sm:text-3xl ">
+            Roll Craft
+          </h1>
+        </div>
+        <div className="mt-[42px]">//Available rolls</div>
+        <Board
+          currentPos={currentPosition}
+          value={diceValue}
+          rolling={isRolling}
+        />
+
+        <div className="flex items-center  mt-6 w-full ">
+          <button
+            className="bg-green-500 px-6 py-3 rounded disabled:opacity-50 w-full "
+            onClick={handleRoll}
+            disabled={isRolling || availableRolls <= 0}
+          >
+            Roll
+          </button>
+        </div>
+        {/* <RollIndicator rolls={availableRolls} cooldown={cooldown} /> */}
+      </div>
+    </>
   );
 }
