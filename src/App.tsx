@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Board from "./components/Board";
 
-// import RollIndicator from "./components/RollIndicator";
+import RollIndicator from "./components/RollIndicator";
 
 const TOTAL_CELLS = 36;
 const COOLDOWN_START = 30 * 60;
@@ -10,7 +10,7 @@ export default function App() {
   const [currentPosition, setCurrentPosition] = useState<number>(0);
   const [diceValue, setDiceValue] = useState<number | null>(null);
   const [isRolling, setIsRolling] = useState<boolean>(false);
-  const [availableRolls, setAvailableRolls] = useState<number>(7);
+  const [availableRolls, setAvailableRolls] = useState<number>(10);
   const [cooldown, setCooldown] = useState<number>(0);
 
   useEffect(() => {
@@ -32,11 +32,15 @@ export default function App() {
   const handleRoll = () => {
     if (isRolling || availableRolls <= 0) return;
     setIsRolling(true);
+    setDiceValue(null);
 
     setTimeout(() => {
       const value = Math.floor(Math.random() * 6) + 1;
       setDiceValue(value);
-      animateMove(value);
+      setIsRolling(false);
+      setTimeout(() => {
+        animateMove(value);
+      }, 300);
     }, 700);
   };
 
@@ -62,12 +66,14 @@ export default function App() {
         <div className="stars-bottom"></div>
       </div>
       <div className="min-h-screen w-full xs:w-[389px] mx-auto text-white flex flex-col items-center p-4">
-        <div className="heading flex items-center justify-center gap-4  mt-[64px]  ">
+        <div className="heading flex items-center justify-center gap-4  mt-[64px] sm:mt-[84px] ">
           <h1 className="relative text-2xl font-extrabold leading-none text-white  sm:text-3xl ">
             Roll Craft
           </h1>
         </div>
-        <div className="mt-[42px]">//Available rolls</div>
+        <div className="mt-[24px] w-full">
+          <RollIndicator rolls={availableRolls} cooldown={cooldown} />
+        </div>
         <Board
           currentPos={currentPosition}
           value={diceValue}
@@ -83,7 +89,6 @@ export default function App() {
             Roll
           </button>
         </div>
-        {/* <RollIndicator rolls={availableRolls} cooldown={cooldown} /> */}
       </div>
     </>
   );
