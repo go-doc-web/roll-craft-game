@@ -1,4 +1,5 @@
 import type { FC } from "react";
+import classNames from "classnames";
 
 interface RollIndicatorProps {
   rolls: number;
@@ -16,34 +17,21 @@ const RollIndicator: FC<RollIndicatorProps> = ({ rolls, cooldown }) => {
   const bars = Array.from({ length: total }).map((_, i) => {
     const filled = i < rolls;
 
-    // TODO use classname for refactoring className
-    if (i === 0) {
-      return (
-        <div
-          key={i}
-          className={` h-4 rounded-l-full w-[26.7px] xs:w-[33.7px] mx-[1px] border border-yellow-400 ${
-            filled ? "bg-yellow-400" : "bg-white/10 "
-          }`}
-        ></div>
-      );
-    } else if (i === total - 1) {
-      return (
-        <div
-          key={i}
-          className={` h-4 rounded-r-full w-[26.7px] xs:w-[33.7px] mx-[1px] border border-yellow-400 ${
-            filled ? "bg-yellow-400" : "bg-white/10 "
-          }`}
-        ></div>
-      );
-    } else
-      return (
-        <div
-          key={i}
-          className={` h-4  w-[26.7px] xs:w-[33.7px] mx-[1px] border border-yellow-400 ${
-            filled ? "bg-yellow-400" : "bg-white/10 "
-          }`}
-        ></div>
-      );
+    const baseClasses =
+      "h-4 w-[26.7px] xs:w-[33.7px] mx-[1px] border border-yellow-400";
+    const filledClass = "bg-yellow-400";
+    const unfilledClass = "bg-white/10";
+
+    const classes = classNames(
+      baseClasses,
+      {
+        "rounded-l-full": i === 0,
+        "rounded-r-full": i === total - 1,
+      },
+      filled ? filledClass : unfilledClass
+    );
+
+    return <div key={i} className={classes}></div>;
   });
 
   return (
