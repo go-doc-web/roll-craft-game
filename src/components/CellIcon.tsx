@@ -7,7 +7,7 @@ interface CellIconProps {
   isStart: boolean;
 }
 
-const CellIcon: FC<CellIconProps> = ({ type, isStart, className }) => {
+const CellIcon: FC<CellIconProps> = ({ type, isStart }) => {
   const IconComponent = cellIconMap[type];
   if (!IconComponent) return null;
 
